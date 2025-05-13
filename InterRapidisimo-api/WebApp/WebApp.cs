@@ -17,6 +17,7 @@ namespace InterRapidisimo_api.WebApp
             app.UseAuthorization();
             app.MapControllers();
             app.MapAuthEndpoints();
+            app.MapStudentEndpoints();
             app.UseCors("AllowAll");
 
             /*************EndPoint*****************/

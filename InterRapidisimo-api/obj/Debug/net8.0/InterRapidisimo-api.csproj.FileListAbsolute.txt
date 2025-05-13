@@ -146,6 +146,8 @@ C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\AutoMapper.dll
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\Azure.Core.dll
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\Azure.Identity.dll
+C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\DevOne.Security.Cryptography.BCrypt.dll
+C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\Dapper.dll
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
@@ -200,6 +202,7 @@ C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj\Debug\net8.0\InterRapidisimo-api.csproj.CoreCompileInputs.cache
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj\Debug\net8.0\InterRapidisimo-api.MvcApplicationPartsAssemblyInfo.cs
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj\Debug\net8.0\InterRapidisimo-api.MvcApplicationPartsAssemblyInfo.cache
+C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj\Debug\net8.0\InterRapidisimo-api.sourcelink.json
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj\Debug\net8.0\staticwebassets.build.json
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj\Debug\net8.0\staticwebassets.development.json
 C:\MisProgramas\Proyectos\Technical_Test\InterRapidisimo\InterRapidisimo-api\obj\Debug\net8.0\staticwebassets\msbuild.InterRapidisimo-api.Microsoft.AspNetCore.StaticWebAssets.props

@@ -1,8 +1,8 @@
 ﻿namespace InterRapidisimo_api.Models.DTOs
 {
-    public class MateriaAsignacionRequestDTO
+    public class DeleteEstudianteMateriaDTO
     {
         public int EstudianteId { get; set; }
-        public List<int> MateriaIds { get; set; } = new();
+        public int MateriaId { get; set; }
     }
 }

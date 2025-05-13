@@ -7,7 +7,8 @@ namespace InterRapidisimo_api.Services.ServiceScoped
     {
         public static IServiceCollection AddScopedService(this IServiceCollection services)
         {
-            services.AddScoped<IAuthRepository, AuthRepository>();;
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
             return services;
         }
     }

@@ -1,12 +1,41 @@
-﻿namespace InterRapidisimo_api.Endpoints
+﻿using InterRapidisimo_api.Class;
+using InterRapidisimo_api.Interface;
+using InterRapidisimo_api.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+
+namespace InterRapidisimo_api.Endpoints
 {
     public static class StudentEndpoint
     {
         public static void MapStudentEndpoints(this WebApplication app)
         {
-            var student = app.MapGroup("/students")/*.RequireAuthorization()*/;
+            var student = app.MapGroup("/student")/*.RequireAuthorization()*/;
 
-            //student.MapPost("/asignar-materias")
+            student.MapPost("/asignar-materias", /*[Authorize]*/ async([FromBody] AssignSubjectsDTO asignarDTO, IStudentRepository studentInterface) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() => 
+                studentInterface.SetAsignarMaterias(asignarDTO));
+            }).WithSummary("➡ Endpoint para asignar materias").WithTags("Student");
+
+            student.MapGet("/materias", async (IStudentRepository studentRepository) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() =>
+                    studentRepository.GetMateriasDisponiblesAsync());
+            }).WithSummary("➡ Lista las materias disponibles").WithTags("Student");
+
+            student.MapPost("/companeros", async (EstudianteDTO IdDTO,IStudentRepository studentRepository) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() =>
+                    studentRepository.GetCompanerosPorMateria(IdDTO));
+            }).WithSummary("➡ Lista los compañeros del estudiante por materia").WithTags("Student");
+
+            student.MapPost("/delete-materia", async (DeleteEstudianteMateriaDTO deleteDTO, IStudentRepository studentRepository) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() => 
+                studentRepository.DeleteMateriaEstudiante(deleteDTO));
+            }).WithSummary("➡ Endpoint para eliminar una materia del estudiante").WithTags("Student");
         }
     }
 }

@@ -13,8 +13,8 @@ namespace InterRapidisimo_api.Services
     {
         public static IServiceCollection AddServicesGeneral(this IServiceCollection services, IConfiguration configuration)
         {
-            // Configuración de conexiones a bases de datos
-            services.AddDatabaseconnections(configuration);
+            // Configuración de conexiones a bases de datos            
+            services.AddDatabaseConnections(configuration);
             //Configuración de Servicios
             services.AddCorsService(configuration);
             services.AddAutoMapperService();

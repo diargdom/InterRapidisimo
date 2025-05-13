@@ -32,10 +32,13 @@ namespace InterRapidisimo_api.Methods
             using var connection = new SqlConnection(_connectionStringInterRapidisimo);
             await connection.OpenAsync();
             using var transaction = await connection.BeginTransactionAsync();
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerStudentDTO.Contrasena);
+
             var parameters = new DynamicParameters();
             parameters.Add("Nombre", registerStudentDTO.Nombre);
             parameters.Add("Email", registerStudentDTO.Email);
-            parameters.Add("Contrasena", registerStudentDTO.Contrasena);
+            parameters.Add("Contrasena", hashedPassword);
+            parameters.Add("DocumentoIdentidad", registerStudentDTO.DocumentoIdentidad);
             parameters.Add("NuevoID", NuevoID, DbType.Int32, ParameterDirection.InputOutput);
             await connection.ExecuteAsync(
                     "[dbo].[sp_RegistrarEstudiante]",
@@ -48,6 +51,27 @@ namespace InterRapidisimo_api.Methods
             return new sp_RegistrarEstudianteDTO
             {
                 NuevoID = idStudent
+            };
+        }
+
+        public async Task<sp_ActualizarEstudianteDTO> SetUpdateStudent(UpdateStudentDTO updateStudentDTO)
+        {
+            int? IdTableStudent = null;
+            using var connection = new SqlConnection(_connectionStringInterRapidisimo);
+            var parameters = new DynamicParameters();
+            parameters.Add("EstudianteId", updateStudentDTO.EstudianteId);
+            parameters.Add("NuevoNombre", updateStudentDTO.NuevoNombre);
+            parameters.Add("NuevoEmail", updateStudentDTO.NuevoEmail);
+            parameters.Add("IdTableStudent", IdTableStudent);
+            await connection.ExecuteAsync(
+                "[dbo].[sp_ActualizarEstudiante]",
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+            
+            return new sp_ActualizarEstudianteDTO
+            {
+                IdTableStudent = updateStudentDTO.EstudianteId
             };
         }
 

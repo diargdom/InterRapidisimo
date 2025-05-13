@@ -23,7 +23,7 @@
   },
   {
     "ContainingType": "InterRapidisimo_api.Endpoints.AuthEndpoints\u002B\u003C\u003Ec",
-    "Method": "\u003CMapAuthEndpoints\u003Eb__0_1",
+    "Method": "\u003CMapAuthEndpoints\u003Eb__0_2",
     "RelativePath": "auth/login",
     "HttpMethod": "POST",
     "IsController": false,
@@ -72,5 +72,129 @@
       "Auth"
     ],
     "Summary": "\u27A1 Endpoint para registrar estudiantes"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.AuthEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapAuthEndpoints\u003Eb__0_1",
+    "RelativePath": "auth/updateStudent",
+    "HttpMethod": "PATCH",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateDTO",
+        "Type": "InterRapidisimo_api.Models.DTOs.UpdateStudentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Auth"
+    ],
+    "Summary": "\u27A1 Endpoint para actualizar estudiantes"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapStudentEndpoints\u003Eb__0_0",
+    "RelativePath": "student/asignar-materias",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "asignarDTO",
+        "Type": "InterRapidisimo_api.Models.DTOs.AssignSubjectsDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Student"
+    ],
+    "Summary": "\u27A1 Endpoint para asignar materias"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapStudentEndpoints\u003Eb__0_2",
+    "RelativePath": "student/companeros",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "IdDTO",
+        "Type": "InterRapidisimo_api.Models.DTOs.EstudianteDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Student"
+    ],
+    "Summary": "\u27A1 Lista los compa\u00F1eros del estudiante por materia"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapStudentEndpoints\u003Eb__0_3",
+    "RelativePath": "student/delete-materia",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "deleteDTO",
+        "Type": "InterRapidisimo_api.Models.DTOs.DeleteEstudianteMateriaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Student"
+    ],
+    "Summary": "\u27A1 Endpoint para eliminar una materia del estudiante"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapStudentEndpoints\u003Eb__0_1",
+    "RelativePath": "student/materias",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Student"
+    ],
+    "Summary": "\u27A1 Lista las materias disponibles"
   }
 ]

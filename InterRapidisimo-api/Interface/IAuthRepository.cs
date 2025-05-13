@@ -7,5 +7,6 @@ namespace InterRapidisimo_api.Interface
     {
         string GenerateJwtToken(LoginRequestDTO LoginDTO);
         Task<sp_RegistrarEstudianteDTO> SetRegisterStudent(RegisterStudentDTO registerStudentDTO);
+        Task<sp_ActualizarEstudianteDTO> SetUpdateStudent(UpdateStudentDTO updateStudentDTO);
     }
 }

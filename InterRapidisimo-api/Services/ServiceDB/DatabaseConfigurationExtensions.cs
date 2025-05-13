@@ -5,7 +5,7 @@ namespace InterRapidisimo_api.Services.ServiceDB
 {
     public static class DatabaseConfigurationExtensions
     {
-        public static IServiceCollection AddDatabaseconnections(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDatabaseConnections(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<InterRapidisimoContext>(a => a.UseSqlServer(configuration.GetConnectionString("ConnectionLocal")));
 

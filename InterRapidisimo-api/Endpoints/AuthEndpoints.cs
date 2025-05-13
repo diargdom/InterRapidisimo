@@ -18,23 +18,23 @@ namespace InterRapidisimo_api.Endpoints
                 return await MethodGeneric.HandleSPRequest(() => authInterface.SetRegisterStudent(registerStudentDTO));
             }).WithSummary("➡ Endpoint para registrar estudiantes").WithTags("Auth");
 
+            auth.MapPatch("/updateStudent", async (UpdateStudentDTO updateDTO, IAuthRepository authInterface) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() => authInterface.SetUpdateStudent(updateDTO));
+            }).WithSummary("➡ Endpoint para actualizar estudiantes").WithTags("Auth");
+
             auth.MapPost("/login", async (HttpContext httpContext, [FromBody] LoginRequestDTO LoginDTO, IAuthRepository authInterface, InterRapidisimoContext context) =>
             {
                 try
                 {
                     var student = await context.Estudiantes.FirstOrDefaultAsync(e => e.Email == LoginDTO.Email);
-                    if (student == null)
+                    if (student == null || !BCrypt.Net.BCrypt.Verify(LoginDTO.Contrasena, student.Contrasena))
                     {
                         return Results.Unauthorized();
-                    }
-
-                    if (LoginDTO.Contrasena != student.Contrasena)
-                    {
-                        return Results.Unauthorized();
-                    }                    
+                    }                                     
 
                     var token = authInterface.GenerateJwtToken(LoginDTO);
-                    return Results.Ok(new { Token = token });
+                    return Results.Ok(new { Token = token, IdEst = student.EstudianteId, Nombre = student.Nombre });
                 }
                 catch (Exception ex)
                 {
