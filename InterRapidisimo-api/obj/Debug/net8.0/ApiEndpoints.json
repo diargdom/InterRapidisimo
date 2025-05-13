@@ -1,60 +1,76 @@
 [
   {
-    "ContainingType": "InterRapidisimo_api.Controllers.AuthController",
-    "Method": "Login",
-    "RelativePath": "api/Auth/login",
+    "ContainingType": "InterRapidisimo_api.WebApp.WebApp\u002B\u003C\u003Ec",
+    "Method": "\u003CConfigureApplication\u003Eb__0_0",
+    "RelativePath": "",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "InterRapidisimo"
+    ],
+    "Summary": "\u27A1 Levantamiento del Backend"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.AuthEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapAuthEndpoints\u003Eb__0_1",
+    "RelativePath": "auth/login",
     "HttpMethod": "POST",
-    "IsController": true,
+    "IsController": false,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
+        "Name": "LoginDTO",
         "Type": "InterRapidisimo_api.Models.DTOs.LoginRequestDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Auth"
+    ],
+    "Summary": "\u27A1 Endpoint para loguin y generaci\u00F3n de JWT"
   },
   {
-    "ContainingType": "InterRapidisimo_api.Controllers.AuthController",
-    "Method": "Register",
-    "RelativePath": "api/Auth/register",
+    "ContainingType": "InterRapidisimo_api.Endpoints.AuthEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapAuthEndpoints\u003Eb__0_0",
+    "RelativePath": "auth/register",
     "HttpMethod": "POST",
-    "IsController": true,
+    "IsController": false,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "InterRapidisimo_api.Models.DTOs.RegisterRequestDTO",
+        "Name": "registerStudentDTO",
+        "Type": "InterRapidisimo_api.Models.DTOs.RegisterStudentDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "InterRapidisimo_api.Controllers.StudentController",
-    "Method": "AsignarMaterias",
-    "RelativePath": "api/Student/asignar-materias",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+    "ReturnTypes": [
       {
-        "Name": "request",
-        "Type": "InterRapidisimo_api.Models.DTOs.MateriaAsignacionRequestDTO",
-        "IsRequired": true
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "InterRapidisimo_api.Controllers.StudentController",
-    "Method": "ObtenerClasesCompartidas",
-    "RelativePath": "api/Student/clases-compartidas",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
+    "Tags": [
+      "Auth"
+    ],
+    "Summary": "\u27A1 Endpoint para registrar estudiantes"
   }
 ]
