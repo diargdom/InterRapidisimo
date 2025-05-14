@@ -14,6 +14,7 @@ function StudentSubjects() {
 
   useEffect(() => {
     fetchMaterias();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, token]);
 
   const fetchMaterias = async () => {

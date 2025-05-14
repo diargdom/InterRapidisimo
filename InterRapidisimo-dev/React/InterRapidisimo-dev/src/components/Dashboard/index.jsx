@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
-  const { nombre, role, token, estudianteId } = useSelector(
+  const { nombre, role, estudianteId } = useSelector(
     (state) => state.authState
   );
   const dispatch = useDispatch();

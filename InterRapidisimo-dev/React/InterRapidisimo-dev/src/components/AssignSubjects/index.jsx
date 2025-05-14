@@ -16,6 +16,7 @@ function AssignSubjects() {
 
   useEffect(() => {
     fetchMateriasDisponibles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const fetchMateriasDisponibles = async () => {

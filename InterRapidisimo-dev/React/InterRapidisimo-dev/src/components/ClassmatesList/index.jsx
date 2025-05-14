@@ -20,7 +20,7 @@ function ClassmatesList() {
           body: JSON.stringify({ EstudianteId: estudianteId }),
         });
         const data = await response.json();
-        setCompañeros(data);
+        setCompañeros(data.data);
       } catch (error) {
         console.error("🚀 ~ constfetchCompañeros= ~ error:", error);
         toast.error("Error al cargar compañeros");
@@ -42,12 +42,12 @@ function ClassmatesList() {
         {compañeros.length > 0 ? (
           compañeros.map((comp) => (
             <motion.div
-              key={`${comp.Materia}-${comp.Compañero}`}
+              key={`${comp.materia}-${comp.compañero}`}
               whileHover={{ scale: 1.02 }}
               className="bg-white p-4 rounded-lg shadow"
             >
-              <h3 className="font-semibold">{comp.Materia}</h3>
-              <p>{comp.Compañero}</p>
+              <h3 className="font-semibold">{comp.materia}</h3>
+              <p>{comp.compañero}</p>
             </motion.div>
           ))
         ) : (
