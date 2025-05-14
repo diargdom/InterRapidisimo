@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 function AssignSubjects() {
   const { token, estudianteId } = useSelector((state) => state.authState);
   const [materiasDisponibles, setMateriasDisponibles] = useState([]);
+  const [profesoresSeleccionados, setProfesoresSeleccionados] = useState([]);
   const [selectedMaterias, setSelectedMaterias] = useState({
     materia1: null,
     materia2: null,
@@ -37,10 +38,25 @@ function AssignSubjects() {
   };
 
   const handleSelectChange = (num, value) => {
+    const materiaSeleccionada = materiasDisponibles.find(
+      (m) => m.materiaId == value
+    );
+    if (!materiaSeleccionada) return;
+
+    if (profesoresSeleccionados.includes(materiaSeleccionada.nombre_Profesor)) {
+      toast.error("Ya tienes una materia con este profesor");
+      return;
+    }
     setSelectedMaterias({
       ...selectedMaterias,
       [`materia${num}`]: value === "" ? null : parseInt(value),
     });
+    if (value !== "") {
+      setProfesoresSeleccionados((prev) => [
+        ...prev,
+        materiaSeleccionada.nombre_Profesor,
+      ]);
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();

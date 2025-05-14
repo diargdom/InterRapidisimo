@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { urlApi } from "../../server";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 function ClassmatesList() {
   const { token, estudianteId } = useSelector((state) => state.authState);
@@ -31,30 +33,42 @@ function ClassmatesList() {
   }, [token, estudianteId]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="max-w-4xl mx-auto p-6"
-    >
-      <h1 className="text-2xl font-bold mb-6">Compañeros de Clase</h1>
+    <div className="min-h-screen bg-gray-900 text-white">
+      <Link
+        to="/dashboard"
+        className="fixed top-4 left-4 bg-blue-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-blue-700 transition"
+      >
+        <ArrowLeft size={18} />
+      </Link>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="max-w-4xl mx-auto p-6 pt-16"
+      >
+        <h1 className="text-3xl font-bold mb-6">Compañeros de Clase</h1>
 
-      <div className="space-y-4">
-        {compañeros.length > 0 ? (
-          compañeros.map((comp) => (
-            <motion.div
-              key={`${comp.materia}-${comp.compañero}`}
-              whileHover={{ scale: 1.02 }}
-              className="bg-white p-4 rounded-lg shadow"
-            >
-              <h3 className="font-semibold">{comp.materia}</h3>
-              <p>{comp.compañero}</p>
-            </motion.div>
-          ))
-        ) : (
-          <p>No tienes compañeros registrados en tus materias</p>
-        )}
-      </div>
-    </motion.div>
+        <div className="space-y-6">
+          {compañeros.length > 0 ? (
+            compañeros.map((comp) => (
+              <motion.div
+                key={`${comp.materia}-${comp.compañero}`}
+                whileHover={{ scale: 1.02 }}
+                className="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
+              >
+                <h3 className="text-xl font-semibold text-indigo-400">
+                  {comp.materia}
+                </h3>
+                <p className="text-gray-300">{comp.compañero}</p>
+              </motion.div>
+            ))
+          ) : (
+            <p className="text-gray-400">
+              No tienes compañeros registrados en tus materias
+            </p>
+          )}
+        </div>
+      </motion.div>
+    </div>
   );
 }
 

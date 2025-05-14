@@ -9,6 +9,11 @@ function Dashboard() {
   );
   const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("Sesión finalizada");
+  };
+
   return (
     <div className="min-h-screen bg-black">
       <motion.div
@@ -17,44 +22,50 @@ function Dashboard() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
+        {/* Encabezado */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
           <h1 className="text-2xl sm:text-3xl font-bold text-white text-center sm:text-left">
             Bienvenido, {nombre}
           </h1>
-          <motion.button
-            onClick={() => dispatch(logout())}
-            className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full sm:w-auto"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Cerrar sesión
-          </motion.button>
+
+          {/* Botones de acción */}
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+            {role === "admin" && (
+              <>
+                <Link to="/estudiantes/registrar">
+                  <motion.button
+                    className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Registrar Estudiante
+                  </motion.button>
+                </Link>
+                <Link to="/estudiantes">
+                  <motion.button
+                    className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-blue-400 transition duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Ver Estudiantes
+                  </motion.button>
+                </Link>
+              </>
+            )}
+
+            <motion.button
+              onClick={handleLogout}
+              className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Cerrar sesión
+            </motion.button>
+          </div>
         </div>
+
+        {/* Contenido según rol */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {role === "admin" && (
-            <>
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                className="bg-white p-6 rounded-lg shadow-md"
-              >
-                <h2 className="text-xl font-semibold mb-4">
-                  Gestión de Estudiantes
-                </h2>
-                <Link
-                  to="/estudiantes/registrar"
-                  className="block bg-blue-500 text-white text-center py-2 rounded hover:bg-blue-600 mb-2"
-                >
-                  Registrar Nuevo Estudiante
-                </Link>
-                <Link
-                  to="/estudiantes"
-                  className="block bg-green-500 text-white text-center py-2 rounded hover:bg-green-600"
-                >
-                  Listar Todos los Estudiantes
-                </Link>
-              </motion.div>
-            </>
-          )}
           {role === "estudiante" && (
             <>
               <motion.div
@@ -84,6 +95,8 @@ function Dashboard() {
               </motion.div>
             </>
           )}
+
+          {/* Común a ambos roles */}
           <motion.div
             whileHover={{ scale: 1.03 }}
             className="bg-white p-6 rounded-lg shadow-md"

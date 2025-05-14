@@ -4,6 +4,7 @@ import { urlApi } from "../../server";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Plus, ArrowLeft } from "lucide-react";
 
 function StudentList() {
   const { token } = useSelector((state) => state.authState);
@@ -32,38 +33,55 @@ function StudentList() {
     }
   };
 
-  if (loading) return <div className="text-center py-8">Cargando...</div>;
+  if (loading)
+    return <div className="text-center py-8 text-gray-600">Cargando...</div>;
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="max-w-6xl mx-auto p-6"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="mx-auto p-2 sm:p-6 bg-gray-50 shadow-xl"
     >
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Listado de Estudiantes</h1>
-        <Link
-          to="/estudiantes/registrar"
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        >
-          Nuevo Estudiante
-        </Link>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+          Listado de Estudiantes
+        </h1>
+
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition text-sm"
+          >
+            <ArrowLeft size={18} />
+            Regresar
+          </Link>
+
+          <Link
+            to="/estudiantes/registrar"
+            className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2 rounded-md shadow hover:bg-green-700 transition text-sm"
+          >
+            <Plus size={18} />
+            Nuevo Estudiante
+          </Link>
+        </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      {/* Vista en tabla (solo en pantallas medianas o más grandes) */}
+      <div className="hidden md:block max-h-[500px] rounded-lg border border-gray-200">
+        <table className="w-full table-auto">
+          <thead className="bg-gray-100 text-gray-700">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide">
                 Nombre
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide">
                 Email
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide">
                 Documento
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide">
                 Acciones
               </th>
             </tr>
@@ -72,19 +90,26 @@ function StudentList() {
             {students.map((student) => (
               <motion.tr
                 key={student.estudianteId}
-                whileHover={{ backgroundColor: "rgba(243, 244, 246, 0.5)" }}
+                whileHover={{
+                  scale: 1.01,
+                  backgroundColor: "rgba(243, 244, 246, 0.6)",
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="transition-all"
               >
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 text-sm text-gray-800 break-words">
                   {student.nombre}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">{student.email}</td>
-                <td className="px-6 py-4 whitespace-nowrap capitalize">
+                <td className="px-6 py-4 text-sm text-gray-800 break-words">
+                  {student.email}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-800 capitalize break-words">
                   {student.documentoIdentidad}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 text-sm">
                   <Link
                     to={`/estudiantes/${student.estudianteId}/materias`}
-                    className="text-blue-500 hover:text-blue-700 mr-4"
+                    className="text-blue-600 hover:text-blue-800 transition"
                   >
                     Ver Materias
                   </Link>
@@ -93,6 +118,38 @@ function StudentList() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Vista mobile (cards) */}
+      <div className="md:hidden space-y-4">
+        {students.map((student) => (
+          <motion.div
+            key={student.estudianteId}
+            whileHover={{ scale: 1.01 }}
+            className="bg-white p-4 rounded-md shadow border border-gray-200"
+          >
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold">Nombre: </span>
+              {student.nombre}
+            </p>
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold">Email: </span>
+              {student.email}
+            </p>
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold">Documento: </span>
+              {student.documentoIdentidad}
+            </p>
+            <div className="mt-3">
+              <Link
+                to={`/estudiantes/${student.estudianteId}/materias`}
+                className="text-sm text-blue-600 hover:text-blue-800 transition"
+              >
+                Ver Materias
+              </Link>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );

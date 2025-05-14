@@ -12,6 +12,7 @@ function StudentRegistration() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ function StudentRegistration() {
       }
 
       const result = await response.json();
-      console.log("🚀 ~ onSubmit ~ result:", result);
       toast.success("Estudiante registrado exitosamente");
+      reset();
       navigate("/estudiantes");
     } catch (error) {
       toast.error(error.message || "Error al registrar estudiante");
@@ -45,48 +46,45 @@ function StudentRegistration() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="max-w-2xl mx-auto p-6"
-    >
-      <h1 className="text-2xl font-bold mb-6">Registrar Nuevo Estudiante</h1>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label className="block mb-2 font-medium">Nombre Completo</label>
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <motion.div
+        className="bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <h2 className="font-semibold text-white mb-6 text-center">
+          Registrar Estudiante
+        </h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <input
             {...register("Nombre", { required: "Nombre es requerido" })}
             type="text"
-            className="w-full p-2 border rounded"
+            placeholder="Nombre Completo"
+            className="p-2 border rounded bg-gray-700 text-white"
           />
           {errors.Nombre && (
             <span className="text-red-500 text-sm">
               {errors.Nombre.message}
             </span>
           )}
-        </div>
 
-        <div>
-          <label className="block mb-2 font-medium">Email</label>
           <input
             {...register("Email", {
               required: "Email es requerido",
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                value: /^[^@]+@[^@]+\.[^@]+$/,
                 message: "Email inválido",
               },
             })}
             type="email"
-            className="w-full p-2 border rounded"
+            placeholder="Correo Electrónico"
+            className="p-2 border rounded bg-gray-700 text-white"
           />
           {errors.Email && (
             <span className="text-red-500 text-sm">{errors.Email.message}</span>
           )}
-        </div>
 
-        <div>
-          <label className="block mb-2 font-medium">Contraseña</label>
           <input
             {...register("Contrasena", {
               required: "Contraseña es requerida",
@@ -96,42 +94,50 @@ function StudentRegistration() {
               },
             })}
             type="password"
-            className="w-full p-2 border rounded"
+            placeholder="Contraseña"
+            className="p-2 border rounded bg-gray-700 text-white"
           />
           {errors.Contrasena && (
             <span className="text-red-500 text-sm">
               {errors.Contrasena.message}
             </span>
           )}
-        </div>
 
-        <div>
-          <label className="block mb-2 font-medium">
-            Documento de Identidad
-          </label>
           <input
             {...register("DocumentoIdentidad", {
               required: "Documento es requerido",
             })}
             type="text"
-            className="w-full p-2 border rounded"
+            placeholder="Documento de Identidad"
+            className="p-2 border rounded bg-gray-700 text-white"
           />
           {errors.DocumentoIdentidad && (
             <span className="text-red-500 text-sm">
               {errors.DocumentoIdentidad.message}
             </span>
           )}
-        </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-blue-300"
+          <motion.button
+            type="submit"
+            disabled={isSubmitting}
+            className="bg-green-500 text-white px-4 py-2 rounded mt-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isSubmitting ? "Registrando..." : "Registrar"}
+          </motion.button>
+        </form>
+
+        <motion.button
+          onClick={() => navigate("/dashboard")}
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          {isSubmitting ? "Registrando..." : "Registrar Estudiante"}
-        </button>
-      </form>
-    </motion.div>
+          Volver
+        </motion.button>
+      </motion.div>
+    </div>
   );
 }
 
