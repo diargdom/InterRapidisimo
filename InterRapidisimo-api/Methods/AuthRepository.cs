@@ -39,6 +39,7 @@ namespace InterRapidisimo_api.Methods
             parameters.Add("Email", registerStudentDTO.Email);
             parameters.Add("Contrasena", hashedPassword);
             parameters.Add("DocumentoIdentidad", registerStudentDTO.DocumentoIdentidad);
+            parameters.Add("Rol", registerStudentDTO.Rol);
             parameters.Add("NuevoID", NuevoID, DbType.Int32, ParameterDirection.InputOutput);
             await connection.ExecuteAsync(
                     "[dbo].[sp_RegistrarEstudiante]",
@@ -83,7 +84,7 @@ namespace InterRapidisimo_api.Methods
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, LoginDTO.Email, LoginDTO.Contrasena),
+                new Claim(JwtRegisteredClaimNames.Sub, LoginDTO.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

@@ -25,6 +25,9 @@ CREATE TABLE Estudiantes (
     FechaRegistro DATETIME DEFAULT GETDATE()
 );
 
+ALTER TABLE Estudiantes
+ADD Rol VARCHAR(20) NOT NULL DEFAULT 'estudiante' CHECK (Rol IN ('admin', 'estudiante'));
+
 CREATE TABLE EstudianteMaterias (
     Id INT PRIMARY KEY IDENTITY(1,1),
     EstudianteId INT NOT NULL FOREIGN KEY REFERENCES Estudiantes(EstudianteId),
@@ -260,6 +263,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sp_RegistrarEstudiante]
     @Email NVARCHAR(100),
     @Contrasena NVARCHAR(100),
     @DocumentoIdentidad NVARCHAR(20),
+    @Rol NVARCHAR(20) = 'estudiante',
     @NuevoID INT OUTPUT
 AS
 BEGIN
@@ -280,8 +284,8 @@ BEGIN
     END
     
     BEGIN TRY
-        INSERT INTO Estudiantes (Nombre, Email, Contrasena, DocumentoIdentidad)
-        VALUES (@Nombre, @Email, @Contrasena, @DocumentoIdentidad);
+        INSERT INTO Estudiantes (Nombre, Email, Contrasena, DocumentoIdentidad, Rol)
+        VALUES (@Nombre, @Email, @Contrasena, @DocumentoIdentidad, @Rol);
 
         SET @NuevoID = SCOPE_IDENTITY();
     END TRY

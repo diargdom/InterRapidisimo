@@ -28,13 +28,13 @@ namespace InterRapidisimo_api.Endpoints
                 try
                 {
                     var student = await context.Estudiantes.FirstOrDefaultAsync(e => e.Email == LoginDTO.Email);
-                    if (student == null || !BCrypt.Net.BCrypt.Verify(LoginDTO.Contrasena, student.Contrasena))
+                    if (student == null || !BCrypt.Net.BCrypt.Verify(LoginDTO.Password, student.Contrasena))
                     {
                         return Results.Unauthorized();
                     }                                     
 
                     var token = authInterface.GenerateJwtToken(LoginDTO);
-                    return Results.Ok(new { Token = token, IdEst = student.EstudianteId, Nombre = student.Nombre });
+                    return Results.Ok(new { Token = token, IdEst = student.EstudianteId, Nombre = student.Nombre, Rol = student.Rol });
                 }
                 catch (Exception ex)
                 {

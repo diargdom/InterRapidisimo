@@ -11,43 +11,49 @@ namespace InterRapidisimo_api.Endpoints
     {
         public static void MapStudentEndpoints(this WebApplication app)
         {
-            var student = app.MapGroup("/student")/*.RequireAuthorization()*/;
+            var student = app.MapGroup("/student").RequireAuthorization();
 
-            student.MapPost("/asignar-materias", /*[Authorize]*/ async([FromBody] AssignSubjectsDTO asignarDTO, IStudentRepository studentInterface) =>
+            student.MapPost("/asignar-materias", [Authorize] async([FromBody] AssignSubjectsDTO asignarDTO, IStudentRepository studentInterface) =>
             {
                 return await MethodGeneric.HandleSPRequest(() => 
                 studentInterface.SetAsignarMaterias(asignarDTO));
             }).WithSummary("➡ Endpoint para asignar materias").WithTags("Student");
 
-            student.MapGet("/materias", async (IStudentRepository studentRepository) =>
+            student.MapGet("/materias", [Authorize] async (IStudentRepository studentRepository) =>
             {
                 return await MethodGeneric.HandleSPRequest(() =>
                     studentRepository.GetMateriasDisponiblesAsync());
             }).WithSummary("➡ Lista las materias disponibles").WithTags("Student");
 
-            student.MapPost("/companeros", async (EstudianteDTO IdDTO,IStudentRepository studentRepository) =>
+            student.MapPost("/companeros", [Authorize] async (EstudianteDTO IdDTO,IStudentRepository studentRepository) =>
             {
                 return await MethodGeneric.HandleSPRequest(() =>
                     studentRepository.GetCompanerosPorMateria(IdDTO));
             }).WithSummary("➡ Lista los compañeros del estudiante por materia").WithTags("Student");
 
-            student.MapPost("/delete-materia", async (DeleteEstudianteMateriaDTO deleteDTO, IStudentRepository studentRepository) =>
+            student.MapPost("/delete-materia", [Authorize] async (DeleteEstudianteMateriaDTO deleteDTO, IStudentRepository studentRepository) =>
             {
                 return await MethodGeneric.HandleSPRequest(() => 
                 studentRepository.DeleteMateriaEstudiante(deleteDTO));
             }).WithSummary("➡ Endpoint para eliminar una materia del estudiante").WithTags("Student");
 
-            student.MapGet("/{EstudianteId}/materias-asignadas", async (int IdStudent, IStudentRepository studentRepository) =>
+            student.MapGet("/{id}/materias-asignadas", [Authorize] async (int id, IStudentRepository studentRepository) =>
             {
                 return await MethodGeneric.HandleSPRequest(() =>
-                    studentRepository.GetMateriasAsignadas(IdStudent));
+                    studentRepository.GetMateriasAsignadas(id));
             }).WithSummary("➡ Obtiene las materias asignadas a un estudiante").WithTags("Student");
 
-            student.MapGet("/{EstudianteId}/historial", async (int IdStudent, IStudentRepository studentRepository) =>
+            student.MapGet("/{EstudianteId}/historial", [Authorize] async (int IdStudent, IStudentRepository studentRepository) =>
             {
                 return await MethodGeneric.HandleSPRequest(() =>
                     studentRepository.GetHistorialEstudiante(IdStudent));
             }).WithSummary("➡ Obtiene el historial de acciones del estudiante").WithTags("Student");
+
+            student.MapGet("/", [Authorize] async (IStudentRepository studentRepository) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() =>
+                    studentRepository.GetAllEstudiantes());
+            }).WithSummary("➡ Lista todos los estudiantes").WithTags("Student");
         }
     }
 }

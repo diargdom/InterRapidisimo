@@ -70,12 +70,12 @@ namespace InterRapidisimo_api.Methods
             return true;
         }
 
-        public async Task<List<sp_ObtenerMateriasAsignadasDTO>> GetMateriasAsignadas(int IdStudent)
+        public async Task<List<sp_ObtenerMateriasAsignadasDTO>> GetMateriasAsignadas(int id)
         {
             using var connection = new SqlConnection(_connectionStringInter);
             var result = await connection.QueryAsync<sp_ObtenerMateriasAsignadasDTO>(
                 "[dbo].[sp_ObtenerMateriasAsignadas]",
-                new { EstudianteId = IdStudent },
+                new { EstudianteId = id },
                 commandType: CommandType.StoredProcedure
             );
             return result.ToList();
@@ -88,6 +88,16 @@ namespace InterRapidisimo_api.Methods
                 "[dbo].[sp_ObtenerHistorialEstudiante]",
                 new { EstudianteId = IdStudent },
                 commandType: CommandType.StoredProcedure
+            );
+            return result.ToList();
+        }
+
+        public async Task<List<StudentSimpleDTO>> GetAllEstudiantes()
+        {
+            using var connection = new SqlConnection(_connectionStringInter);
+            var result = await connection.QueryAsync<StudentSimpleDTO>(
+                "SELECT EstudianteId, Nombre, Email, DocumentoIdentidad FROM Estudiantes",
+                commandType: CommandType.Text
             );
             return result.ToList();
         }

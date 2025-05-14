@@ -8,6 +8,7 @@
         public string Contrasena { get; set; } = string.Empty;
         public string DocumentoIdentidad { get; set; } = string.Empty;
         public DateTime FechaRegistro { get; set; }
+        public string Rol { get; set; } = "estudiante";
         public ICollection<EstudianteMateria> Materias { get; set; } = new List<EstudianteMateria>();
     }
 }

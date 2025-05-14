@@ -101,6 +101,26 @@
   },
   {
     "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapStudentEndpoints\u003Eb__0_6",
+    "RelativePath": "student/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Student"
+    ],
+    "Summary": "\u27A1 Lista todos los estudiantes"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapStudentEndpoints\u003Eb__0_5",
     "RelativePath": "student/{EstudianteId}/historial",
     "HttpMethod": "GET",
@@ -128,13 +148,13 @@
   {
     "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapStudentEndpoints\u003Eb__0_4",
-    "RelativePath": "student/{EstudianteId}/materias-asignadas",
+    "RelativePath": "student/{id}/materias-asignadas",
     "HttpMethod": "GET",
     "IsController": false,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "IdStudent",
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }

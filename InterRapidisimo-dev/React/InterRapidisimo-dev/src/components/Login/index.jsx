@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import LogoInterRapidisimoImage from "../../img/logoInterrapidisimo.png";
 import InterRapidisimoImage from "../../img/Interrapidismo.png";
+import { urlApi } from "../../server";
+import { toast } from "react-toastify";
+import { setCredentials } from "../../redux/slices/authSlice";
 
 function Login() {
   const {
@@ -15,20 +18,27 @@ function Login() {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    // try {
-    //   const response = await fetch(`${urlApi}/auth/login`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(data),
-    //   });
-    //   if (!response.ok) toast.error("Credenciales incorrectas");
-    //   const result = await response.json();
-    //   dispatch(setCredentials({ token: result.token, role: result.role }));
-    //   navigate("/dashboard");
-    //   toast.success("Inicio de sesión exitoso");
-    // } catch (error) {
-    //   toast.error(error);
-    // }
+    try {
+      const response = await fetch(`${urlApi}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) toast.error("Credenciales incorrectas");
+      const result = await response.json();
+      dispatch(
+        setCredentials({
+          token: result.token,
+          nombre: result.nombre,
+          role: result.rol,
+          estudianteId: result.idEst,
+        })
+      );
+      navigate("/dashboard");
+      toast.success("Inicio de sesión exitoso");
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
