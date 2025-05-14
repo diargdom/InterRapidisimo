@@ -101,6 +101,58 @@
   },
   {
     "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapStudentEndpoints\u003Eb__0_5",
+    "RelativePath": "student/{EstudianteId}/historial",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "IdStudent",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Student"
+    ],
+    "Summary": "\u27A1 Obtiene el historial de acciones del estudiante"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapStudentEndpoints\u003Eb__0_4",
+    "RelativePath": "student/{EstudianteId}/materias-asignadas",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "IdStudent",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Student"
+    ],
+    "Summary": "\u27A1 Obtiene las materias asignadas a un estudiante"
+  },
+  {
+    "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapStudentEndpoints\u003Eb__0_0",
     "RelativePath": "student/asignar-materias",
     "HttpMethod": "POST",

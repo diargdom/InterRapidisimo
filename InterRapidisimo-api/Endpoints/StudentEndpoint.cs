@@ -36,6 +36,18 @@ namespace InterRapidisimo_api.Endpoints
                 return await MethodGeneric.HandleSPRequest(() => 
                 studentRepository.DeleteMateriaEstudiante(deleteDTO));
             }).WithSummary("➡ Endpoint para eliminar una materia del estudiante").WithTags("Student");
+
+            student.MapGet("/{EstudianteId}/materias-asignadas", async (int IdStudent, IStudentRepository studentRepository) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() =>
+                    studentRepository.GetMateriasAsignadas(IdStudent));
+            }).WithSummary("➡ Obtiene las materias asignadas a un estudiante").WithTags("Student");
+
+            student.MapGet("/{EstudianteId}/historial", async (int IdStudent, IStudentRepository studentRepository) =>
+            {
+                return await MethodGeneric.HandleSPRequest(() =>
+                    studentRepository.GetHistorialEstudiante(IdStudent));
+            }).WithSummary("➡ Obtiene el historial de acciones del estudiante").WithTags("Student");
         }
     }
 }

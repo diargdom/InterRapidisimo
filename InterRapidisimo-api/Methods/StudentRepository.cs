@@ -28,16 +28,8 @@ namespace InterRapidisimo_api.Methods
             parameters.Add("Materia2", asignarDTO.Materia2);
             parameters.Add("Materia3", asignarDTO.Materia3);
 
-            try
-            {
-                await connection.ExecuteAsync("sp_AsignarMaterias", parameters, commandType: CommandType.StoredProcedure);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(ex.Message);
-            }
-
+            await connection.ExecuteAsync("sp_AsignarMaterias", parameters, commandType: CommandType.StoredProcedure);
+            return true;
         }
 
         public async Task<List<sp_ObtenerMateriasConProfesoresDTO>> GetMateriasDisponiblesAsync()
@@ -76,6 +68,28 @@ namespace InterRapidisimo_api.Methods
             );
 
             return true;
+        }
+
+        public async Task<List<sp_ObtenerMateriasAsignadasDTO>> GetMateriasAsignadas(int IdStudent)
+        {
+            using var connection = new SqlConnection(_connectionStringInter);
+            var result = await connection.QueryAsync<sp_ObtenerMateriasAsignadasDTO>(
+                "[dbo].[sp_ObtenerMateriasAsignadas]",
+                new { EstudianteId = IdStudent },
+                commandType: CommandType.StoredProcedure
+            );
+            return result.ToList();
+        }
+
+        public async Task<List<sp_HistorialEstudianteDTO>> GetHistorialEstudiante(int IdStudent)
+        {
+            using var connection = new SqlConnection(_connectionStringInter);
+            var result = await connection.QueryAsync<sp_HistorialEstudianteDTO>(
+                "[dbo].[sp_ObtenerHistorialEstudiante]",
+                new { EstudianteId = IdStudent },
+                commandType: CommandType.StoredProcedure
+            );
+            return result.ToList();
         }
     }
 }

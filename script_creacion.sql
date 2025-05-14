@@ -136,8 +136,17 @@ BEGIN
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = ERROR_MESSAGE(),
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
         ROLLBACK TRANSACTION;
-        RAISERROR('Error al asignar materias: %s', 16, 1, ERROR_MESSAGE());
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END
 GO
@@ -254,7 +263,30 @@ BEGIN
         SET @NuevoID = SCOPE_IDENTITY();
     END TRY
     BEGIN CATCH
-        RAISERROR('Error al registrar el estudiante: %s', 16, 1, ERROR_MESSAGE());
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+        
+        RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END
 GO
+-- Procedimiento para Materias Asignadas
+CREATE PROCEDURE [dbo].[sp_ObtenerMateriasAsignadas]
+    @EstudianteId INT
+AS
+BEGIN
+    SELECT 
+        m.MateriaId,
+        m.Nombre,
+        p.Nombre AS Profesor,
+        m.Creditos
+    FROM EstudianteMaterias em
+    JOIN Materias m ON em.MateriaId = m.MateriaId
+    JOIN Profesores p ON m.ProfesorId = p.ProfesorId
+    WHERE em.EstudianteId = @EstudianteId
+END
+
+--Índices para Mejorar Rendimiento
+CREATE INDEX IX_EstudianteMaterias_EstudianteId ON EstudianteMaterias(EstudianteId);
+CREATE INDEX IX_EstudianteMaterias_MateriaId ON EstudianteMaterias(MateriaId);

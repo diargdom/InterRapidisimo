@@ -1,5 +1,4 @@
-﻿using InterRapidisimo_api.Errors;
-
+﻿
 namespace InterRapidisimo_api.Class
 {
     public class MethodGeneric
@@ -9,19 +8,72 @@ namespace InterRapidisimo_api.Class
             try
             {
                 var result = await spMethod();
-
-                if (result == null)
+                return Results.Ok(new ApiResponse<T>
                 {
-                    var errorResponse = new ErrorResponse("No data found.", 404);
-                    return Results.NotFound(errorResponse);
-                }
-
-                return Results.Ok(result);
+                    Success = true,
+                    Data = result,
+                    Message = "Operación exitosa"
+                });
             }
             catch (Exception ex)
             {
-                var errorResponse = new ErrorResponse(ex.Message, 500, ex.StackTrace);
-                return Results.Problem(errorResponse.Message, statusCode: 500);
+                return Results.BadRequest(new ApiResponse<string>
+                {
+                    Success = false,
+                    Data = null,
+                    Message = "Error en la operación",
+                    Errors = new List<ApiError>
+                    {
+                        new ApiError
+                        {
+                            Code = "SERVER_ERROR",
+                            Message = ex.Message
+                        }
+                    }
+                });
+            }
+        }
+
+        public class ApiResponse<T>
+        {
+            public bool Success { get; set; }
+            public T Data { get; set; }
+            public string Message { get; set; }
+            public List<ApiError> Errors { get; set; } = new();
+
+            // Constructor sin parámetros para serialización
+            public ApiResponse() { }
+
+            // Constructor conveniente (opcional)
+            public ApiResponse(bool success, T data, string message)
+            {
+                Success = success;
+                Data = data;
+                Message = message;
+            }
+
+            public ApiResponse(bool success, T data, string message, List<ApiError> errors)
+            {
+                Success = success;
+                Data = data;
+                Message = message;
+                Errors = errors;
+            }
+        }
+
+        public class ApiError
+        {
+            public string Code { get; set; }
+            public string Message { get; set; }
+
+            // Constructor sin parámetros para serialización
+            public ApiError() { }
+
+            // Constructor conveniente
+            public ApiError(string code, string message)
+            {
+                Code = code;
+                Message = message;
             }
         }
     }
