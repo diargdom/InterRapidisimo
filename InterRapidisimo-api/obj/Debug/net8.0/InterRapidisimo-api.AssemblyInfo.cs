@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InterRapidisimo-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9a4ae591a2ef1d8bbb382e3dd491502f8b52f43")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e4590e13fd01138101c259fcd928ae835665ea6")]
 [assembly: System.Reflection.AssemblyProductAttribute("InterRapidisimo-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InterRapidisimo-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
