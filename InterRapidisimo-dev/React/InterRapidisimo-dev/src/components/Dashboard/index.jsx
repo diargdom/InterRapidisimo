@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const { nombre, role, estudianteId } = useSelector(
@@ -21,13 +22,12 @@ function Dashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-      >        
+      >
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
           <h1 className="text-2xl sm:text-3xl font-bold text-white text-center sm:text-left">
             Bienvenido, {nombre}
           </h1>
 
-          
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
             {role === "admin" && (
               <>
@@ -62,35 +62,34 @@ function Dashboard() {
             </motion.button>
           </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                className="bg-white p-6 rounded-lg shadow-md"
-              >
-                <h2 className="text-xl font-semibold mb-4">Mis Materias</h2>
-                <Link
-                  to={`/estudiantes/${estudianteId}/materias`}
-                  className="block bg-purple-500 text-white text-center py-2 rounded hover:bg-purple-600"
-                >
-                  Ver Mis Materias Asignadas
-                </Link>
-              </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                className="bg-white p-6 rounded-lg shadow-md"
-              >
-                <h2 className="text-xl font-semibold mb-4">Asignar Materias</h2>
-                <Link
-                  to="/materias/asignar"
-                  className="block bg-indigo-500 text-white text-center py-2 rounded hover:bg-indigo-600"
-                >
-                  Seleccionar Nuevas Materias
-                </Link>
-              </motion.div>
-          
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="bg-white p-6 rounded-lg shadow-md"
+          >
+            <h2 className="text-xl font-semibold mb-4">Mis Materias</h2>
+            <Link
+              to={`/estudiantes/${estudianteId}/materias`}
+              className="block bg-purple-500 text-white text-center py-2 rounded hover:bg-purple-600"
+            >
+              Ver Mis Materias Asignadas
+            </Link>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="bg-white p-6 rounded-lg shadow-md"
+          >
+            <h2 className="text-xl font-semibold mb-4">Asignar Materias</h2>
+            <Link
+              to="/materias/asignar"
+              className="block bg-indigo-500 text-white text-center py-2 rounded hover:bg-indigo-600"
+            >
+              Seleccionar Nuevas Materias
+            </Link>
+          </motion.div>
+
           <motion.div
             whileHover={{ scale: 1.03 }}
             className="bg-white p-6 rounded-lg shadow-md"

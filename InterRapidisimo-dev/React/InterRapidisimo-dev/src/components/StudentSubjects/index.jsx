@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { urlApi } from "../../server";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
-import { Trash, X, ArrowLeft } from "lucide-react";
+import { Trash, ArrowLeft } from "lucide-react";
 import Swal from "sweetalert2";
 
 function StudentSubjects() {

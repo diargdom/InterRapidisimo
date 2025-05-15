@@ -66,8 +66,6 @@ export const routes = [
           </ProtectedRoute>
         ),
       },
-
-      // Ruta común
       { path: "/compañeros", element: <ClassmatesList /> },
     ],
   },

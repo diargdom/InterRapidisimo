@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import LogoInterRapidisimoImage from "../../img/logoInterrapidisimo.png";
-import InterRapidisimoImage from "../../img/Interrapidismo.png";
 import { urlApi } from "../../server";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../redux/slices/authSlice";
