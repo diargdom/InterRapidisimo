@@ -21,14 +21,13 @@ function Dashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-      >
-        {/* Encabezado */}
+      >        
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
           <h1 className="text-2xl sm:text-3xl font-bold text-white text-center sm:text-left">
             Bienvenido, {nombre}
           </h1>
 
-          {/* Botones de acción */}
+          
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
             {role === "admin" && (
               <>
@@ -63,11 +62,9 @@ function Dashboard() {
             </motion.button>
           </div>
         </div>
-
-        {/* Contenido según rol */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {role === "estudiante" && (
-            <>
+          
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 className="bg-white p-6 rounded-lg shadow-md"
@@ -93,10 +90,7 @@ function Dashboard() {
                   Seleccionar Nuevas Materias
                 </Link>
               </motion.div>
-            </>
-          )}
-
-          {/* Común a ambos roles */}
+          
           <motion.div
             whileHover={{ scale: 1.03 }}
             className="bg-white p-6 rounded-lg shadow-md"

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\MisProgramas\\Proyectos\\Technical_Test\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj": {}
+    "C:\\Users\\Diego Argumedo\\Desktop\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj": {}
   },
   "projects": {
-    "C:\\MisProgramas\\Proyectos\\Technical_Test\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj": {
+    "C:\\Users\\Diego Argumedo\\Desktop\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\MisProgramas\\Proyectos\\Technical_Test\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj",
+        "projectUniqueName": "C:\\Users\\Diego Argumedo\\Desktop\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj",
         "projectName": "InterRapidisimo-api",
-        "projectPath": "C:\\MisProgramas\\Proyectos\\Technical_Test\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj",
-        "packagesPath": "C:\\Users\\diegoargumedo.jcol\\.nuget\\packages\\",
-        "outputPath": "C:\\MisProgramas\\Proyectos\\Technical_Test\\InterRapidisimo\\InterRapidisimo-api\\obj\\",
+        "projectPath": "C:\\Users\\Diego Argumedo\\Desktop\\InterRapidisimo\\InterRapidisimo-api\\InterRapidisimo-api.csproj",
+        "packagesPath": "C:\\Users\\Diego Argumedo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Diego Argumedo\\Desktop\\InterRapidisimo\\InterRapidisimo-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\diegoargumedo.jcol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Diego Argumedo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -114,7 +114,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

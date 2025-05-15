@@ -1,133 +1,126 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { urlApi } from "../../server";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 function StudentUpdate() {
   const { id } = useParams();
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.authState);
-  const [student, setStudent] = useState({
-    nombre: "",
-    email: "",
-    documentoIdentidad: "",
-    rol: "estudiante",
-  });
-  const [loading, setLoading] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchStudent = async () => {
-      try {
-        const response = await fetch(`${urlApi}/estudiantes/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await response.json();
-        setStudent(data);
-      } catch (error) {
-        toast.error(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (state?.studentData) {
+      setValue("NuevoNombre", state.studentData.nombre);
+      setValue("NuevoEmail", state.studentData.email);
+    }
+  }, [state, setValue]);
 
-    fetchStudent();
-  }, [id, token]);
+  const onSubmit = async (data) => {
+    if (!data.NuevoNombre && !data.NuevoEmail) {
+      toast.error("Debe proporcionar al menos un campo para actualizar");
+      return;
+    }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    setIsSubmitting(true);
     try {
-      const response = await fetch(`${urlApi}/estudiantes/${id}`, {
+      const updateData = {
+        EstudianteId: parseInt(id),
+        ...(data.NuevoNombre && { NuevoNombre: data.NuevoNombre }),
+        ...(data.NuevoEmail && { NuevoEmail: data.NuevoEmail }),
+      };
+      console.log("🚀 ~ onSubmit ~ updateData:", updateData);
+
+      const response = await fetch(`${urlApi}/auth/updateStudent`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(student),
+        body: JSON.stringify(updateData),
       });
 
-      if (!response.ok) throw new Error("Error al actualizar estudiante");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error al actualizar estudiante");
+      }
 
       toast.success("Estudiante actualizado correctamente");
+      navigate("/estudiantes", { replace: true });
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e) => {
-    setStudent({
-      ...student,
-      [e.target.name]: e.target.value,
-    });
-  };
-  if (loading) return <div className="text-center py-8">Cargando...</div>;
-
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="max-w-2xl mx-auto p-6"
-    >
-      <h1 className="text-2xl font-bold mb-6">Actualizar Estudiante</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-2 font-medium">Nombre</label>
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <motion.div
+        className="bg-gray-800 p-8 rounded shadow-md w-full max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <h2 className="font-semibold text-white mb-6 text-center">
+          Actualizar Estudiante
+        </h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <input
+            {...register("NuevoNombre")}
             type="text"
-            name="nombre"
-            value={student.nombre}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-            required
+            placeholder="Nuevo Nombre (opcional)"
+            className="p-2 border rounded bg-gray-700 text-white"
           />
-        </div>
 
-        <div>
-          <label className="block mb-2 font-medium">Email</label>
           <input
+            {...register("NuevoEmail", {
+              pattern: {
+                value: /^[^@]+@[^@]+\.[^@]+$/,
+                message: "Email inválido",
+              },
+            })}
             type="email"
-            name="email"
-            value={student.email}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-            required
+            placeholder="Nuevo Correo Electrónico (opcional)"
+            className="p-2 border rounded bg-gray-700 text-white"
           />
-        </div>
+          {errors.NuevoEmail && (
+            <span className="text-red-500 text-sm">
+              {errors.NuevoEmail.message}
+            </span>
+          )}
 
-        <div>
-          <label className="block mb-2 font-medium">Documento</label>
-          <input
-            type="text"
-            name="documentoIdentidad"
-            value={student.documentoIdentidad}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-2 font-medium">Rol</label>
-          <select
-            name="rol"
-            value={student.rol}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
+          <motion.button
+            type="submit"
+            disabled={isSubmitting}
+            className="bg-green-500 text-white px-4 py-2 rounded mt-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <option value="estudiante">Estudiante</option>
-            <option value="admin">Administrador</option>
-          </select>
-        </div>
+            {isSubmitting ? "Actualizando..." : "Actualizar"}
+          </motion.button>
+        </form>
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        <motion.button
+          onClick={() => navigate("/estudiantes")}
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          Guardar Cambios
-        </button>
-      </form>
-    </motion.div>
+          Volver
+        </motion.button>
+      </motion.div>
+    </div>
   );
 }
 

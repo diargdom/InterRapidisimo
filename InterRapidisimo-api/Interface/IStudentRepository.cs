@@ -11,7 +11,7 @@ namespace InterRapidisimo_api.Interface
         Task<List<sp_ObtenerCompanerosDTO>> GetCompanerosPorMateria(EstudianteDTO idDTO);
         Task<bool> DeleteMateriaEstudiante(DeleteEstudianteMateriaDTO deleteDTO);
         Task<List<sp_ObtenerMateriasAsignadasDTO>> GetMateriasAsignadas(int id);
-        Task<List<sp_HistorialEstudianteDTO>> GetHistorialEstudiante(int IdStudent);
+        Task<List<sp_HistorialEstudianteDTO>> GetHistorialEstudiante(int id);
         Task<List<StudentSimpleDTO>> GetAllEstudiantes();
     }
 }

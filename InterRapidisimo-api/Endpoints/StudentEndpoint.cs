@@ -43,10 +43,10 @@ namespace InterRapidisimo_api.Endpoints
                     studentRepository.GetMateriasAsignadas(id));
             }).WithSummary("➡ Obtiene las materias asignadas a un estudiante").WithTags("Student");
 
-            student.MapGet("/{EstudianteId}/historial", [Authorize] async (int IdStudent, IStudentRepository studentRepository) =>
+            student.MapGet("/{id}/historial", [Authorize] async (int id, IStudentRepository studentRepository) =>
             {
                 return await MethodGeneric.HandleSPRequest(() =>
-                    studentRepository.GetHistorialEstudiante(IdStudent));
+                    studentRepository.GetHistorialEstudiante(id));
             }).WithSummary("➡ Obtiene el historial de acciones del estudiante").WithTags("Student");
 
             student.MapGet("/", [Authorize] async (IStudentRepository studentRepository) =>

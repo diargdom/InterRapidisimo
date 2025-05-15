@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { urlApi } from "../../server";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
 
 function StudentRegistration() {
   const { token } = useSelector((state) => state.authState);
@@ -14,7 +14,6 @@ function StudentRegistration() {
     formState: { errors },
     reset,
   } = useForm();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,6 +34,7 @@ function StudentRegistration() {
       }
 
       const result = await response.json();
+      console.log("🚀 ~ onSubmit ~ result:", result);
       toast.success("Estudiante registrado exitosamente");
       reset();
       navigate("/estudiantes");

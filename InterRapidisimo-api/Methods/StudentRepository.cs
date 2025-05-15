@@ -81,12 +81,12 @@ namespace InterRapidisimo_api.Methods
             return result.ToList();
         }
 
-        public async Task<List<sp_HistorialEstudianteDTO>> GetHistorialEstudiante(int IdStudent)
+        public async Task<List<sp_HistorialEstudianteDTO>> GetHistorialEstudiante(int id)
         {
             using var connection = new SqlConnection(_connectionStringInter);
             var result = await connection.QueryAsync<sp_HistorialEstudianteDTO>(
                 "[dbo].[sp_ObtenerHistorialEstudiante]",
-                new { EstudianteId = IdStudent },
+                new { EstudianteId = id },
                 commandType: CommandType.StoredProcedure
             );
             return result.ToList();

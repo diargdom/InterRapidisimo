@@ -26,6 +26,7 @@
     "react-router-dom": "^7.6.0",
     "react-toastify": "^11.0.5",
     "redux-persist": "^6.0.0",
+    "sweetalert2": "^11.21.0",
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.6"
   },

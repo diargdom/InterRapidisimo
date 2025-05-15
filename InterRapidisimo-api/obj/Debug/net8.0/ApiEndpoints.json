@@ -122,13 +122,13 @@
   {
     "ContainingType": "InterRapidisimo_api.Endpoints.StudentEndpoint\u002B\u003C\u003Ec",
     "Method": "\u003CMapStudentEndpoints\u003Eb__0_5",
-    "RelativePath": "student/{EstudianteId}/historial",
+    "RelativePath": "student/{id}/historial",
     "HttpMethod": "GET",
     "IsController": false,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "IdStudent",
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }

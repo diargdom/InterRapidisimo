@@ -8,6 +8,7 @@ import StudentUpdate from "../components/StudentUpdate";
 import StudentSubjects from "../components/StudentSubjects";
 import AssignSubjects from "../components/AssignSubjects";
 import ClassmatesList from "../components/ClassmatesList";
+import StudentHistory from "../components/StudentHistory";
 
 export const routes = [
   { path: "/", element: <LoginPage /> },
@@ -33,7 +34,7 @@ export const routes = [
       },
 
       {
-        path: "/estudiantes/actualizar/:EstudianteId",
+        path: "/estudiantes/actualizar/:id",
         element: (
           <ProtectedRoute adminOnly>
             <StudentUpdate />
@@ -46,6 +47,14 @@ export const routes = [
         element: (
           <ProtectedRoute>
             <StudentSubjects />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/estudiantes/:EstudianteId/historial",
+        element: (
+          <ProtectedRoute adminOnly>
+            <StudentHistory />
           </ProtectedRoute>
         ),
       },
